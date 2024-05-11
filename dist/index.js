@@ -7898,7 +7898,7 @@ var AtCalendarList = /** @class */ (function (_super) {
                         item.type === TYPE_PRE_MONTH ||
                         item.type === TYPE_NEXT_MONTH
                 }) },
-                React__default["default"].createElement(components.View, { className: 'flex__item-container' }, customRender ? customRender : (React__default["default"].createElement(components.View, { className: 'container-text' }, item.text))),
+                React__default["default"].createElement(components.View, { className: 'flex__item-container' }, customRender || (React__default["default"].createElement(components.View, { className: 'container-text' }, item.text))),
                 React__default["default"].createElement(components.View, { className: 'flex__item-extra extra' }, item.marks && item.marks.length > 0 ? (React__default["default"].createElement(components.View, { className: 'extra-marks' }, item.marks.map(function (mark, key) { return (React__default["default"].createElement(components.Text, { key: key, className: 'mark' }, mark.value)); }))) : null)));
         })));
     };

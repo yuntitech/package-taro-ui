@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Yarn and NPM files
+yarn-error.log
+package-lock.json
+
+# Template files
+.temp
+.DS_Store
+.eslintcache
+.swc
+
+# Editor and IDE files
+.vscode
+.idea
+
+# Build outputs
+
+# Docs outputs
+site/
+docs/h5/
+
+# Rollup visualizer file
+stats.html
+
+# Test files
+coverage
+
+# miniapp private files
+*.private.*
+
+# taro rn release
+!packages/taro-ui-demo-rn/release/**
