@@ -1,5 +1,6 @@
 # Node modules
 node_modules/
+./node_modules/**
 
 # Yarn and NPM files
 yarn-error.log
