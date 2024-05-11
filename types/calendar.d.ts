@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { BaseEvent } from '@tarojs/components/types/common'
+import { ReactNode } from 'react'
 
 // #region Calendar
 declare namespace Calendar {
@@ -44,6 +45,8 @@ declare namespace Calendar {
     isSelectedHead?: boolean
 
     isSelectedTail?: boolean
+
+    customRender?: ReactNode
   }
 
   export interface SelectedDate {
@@ -112,6 +115,8 @@ export interface AtCalendarPropsBase {
   onDayLongClick?: (item: { value: string }) => void
 
   onMonthChange?: (value: string) => void
+
+  formatter?: (dayItem: Calendar.Item) => Calendar.Item
 }
 
 export interface AtCalendarSingleSelectedProps extends AtCalendarPropsBase {
@@ -213,6 +218,8 @@ export interface AtCalendarBodyProps {
   onSwipeMonth: (vectorCount: number) => void
 
   onLongClick: (item: Calendar.Item) => void
+
+  formatter?: (dayItem: Calendar.Item) => Calendar.Item
 }
 
 export interface AtCalendarBodyState {

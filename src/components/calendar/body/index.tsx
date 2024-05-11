@@ -257,7 +257,7 @@ export default class AtCalendarBody extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { isSwiper } = this.props
+    const { isSwiper, formatter } = this.props
     const { isAnimate, offsetSize, listGroup } = this.state
 
     if (!isSwiper) {
@@ -273,6 +273,7 @@ export default class AtCalendarBody extends React.Component<
           <View className='main__body body'>
             <View className='body__slider body__slider--now'>
               <AtCalendarDateList
+                formatter={formatter}
                 list={listGroup[1].list}
                 onClick={this.props.onDayClick}
                 onLongClick={this.props.onLongClick}
@@ -312,17 +313,24 @@ export default class AtCalendarBody extends React.Component<
             }}
           >
             <View className='body__slider body__slider--pre'>
-              <AtCalendarDateList list={listGroup[0].list} />
+              <AtCalendarDateList
+                list={listGroup[0].list}
+                formatter={formatter}
+              />
             </View>
             <View className='body__slider body__slider--now'>
               <AtCalendarDateList
                 list={listGroup[1].list}
                 onClick={this.props.onDayClick}
                 onLongClick={this.props.onLongClick}
+                formatter={formatter}
               />
             </View>
             <View className='body__slider body__slider--next'>
-              <AtCalendarDateList list={listGroup[2].list} />
+              <AtCalendarDateList
+                list={listGroup[2].list}
+                formatter={formatter}
+              />
             </View>
           </View>
         </View>
@@ -352,6 +360,7 @@ export default class AtCalendarBody extends React.Component<
           {listGroup.map((item, key) => (
             <SwiperItem key={key} itemId={key.toString()}>
               <AtCalendarDateList
+                formatter={formatter}
                 list={item.list}
                 onClick={this.props.onDayClick}
                 onLongClick={this.props.onLongClick}

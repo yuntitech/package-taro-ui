@@ -16,6 +16,8 @@ export interface Props {
   onClick?: (item: Calendar.Item) => void
 
   onLongClick?: (item: Calendar.Item) => void
+
+  formatter?: (dayItem: Calendar.Item) => Calendar.Item
 }
 
 export default class AtCalendarList extends React.Component<Props> {
@@ -32,48 +34,53 @@ export default class AtCalendarList extends React.Component<Props> {
   }
 
   public render(): JSX.Element | null {
-    const { list } = this.props
+    const { list, formatter } = this.props
     if (!list || list.length === 0) return null
 
     return (
       <View className='at-calendar__list flex'>
-        {list.map((item: Calendar.Item) => (
-          <View
-            key={`list-item-${item.value}`}
-            onClick={this.handleClick.bind(this, item)}
-            onLongPress={this.handleLongClick.bind(this, item)}
-            className={classnames(
-              'flex__item',
-              `flex__item--${MAP[item.type]}`,
-              {
-                'flex__item--today': item.isToday,
-                'flex__item--active': item.isActive,
-                'flex__item--selected': item.isSelected,
-                'flex__item--selected-head': item.isSelectedHead,
-                'flex__item--selected-tail': item.isSelectedTail,
-                'flex__item--blur':
-                  item.isDisabled ||
-                  item.type === constant.TYPE_PRE_MONTH ||
-                  item.type === constant.TYPE_NEXT_MONTH
-              }
-            )}
-          >
-            <View className='flex__item-container'>
-              <View className='container-text'>{item.text}</View>
+        {list.map((item: Calendar.Item) => {
+          const customRender = formatter ? formatter(item).customRender : null
+          return (
+            <View
+              key={`list-item-${item.value}`}
+              onClick={this.handleClick.bind(this, item)}
+              onLongPress={this.handleLongClick.bind(this, item)}
+              className={classnames(
+                'flex__item',
+                `flex__item--${MAP[item.type]}`,
+                {
+                  'flex__item--today': item.isToday,
+                  'flex__item--active': item.isActive,
+                  'flex__item--selected': item.isSelected,
+                  'flex__item--selected-head': item.isSelectedHead,
+                  'flex__item--selected-tail': item.isSelectedTail,
+                  'flex__item--blur':
+                    item.isDisabled ||
+                    item.type === constant.TYPE_PRE_MONTH ||
+                    item.type === constant.TYPE_NEXT_MONTH
+                }
+              )}
+            >
+              <View className='flex__item-container'>
+                {customRender || (
+                  <View className='container-text'>{item.text}</View>
+                )}
+              </View>
+              <View className='flex__item-extra extra'>
+                {item.marks && item.marks.length > 0 ? (
+                  <View className='extra-marks'>
+                    {item.marks.map((mark, key) => (
+                      <Text key={key} className='mark'>
+                        {mark.value}
+                      </Text>
+                    ))}
+                  </View>
+                ) : null}
+              </View>
             </View>
-            <View className='flex__item-extra extra'>
-              {item.marks && item.marks.length > 0 ? (
-                <View className='extra-marks'>
-                  {item.marks.map((mark, key) => (
-                    <Text key={key} className='mark'>
-                      {mark.value}
-                    </Text>
-                  ))}
-                </View>
-              ) : null}
-            </View>
-          </View>
-        ))}
+          )
+        })}
       </View>
     )
   }
